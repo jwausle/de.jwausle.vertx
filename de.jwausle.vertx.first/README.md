@@ -1,6 +1,6 @@
-= Vert.x 3.1 & Play-twirl 1.1 to show openlayer map with wiki-text2speech link. =
+## Vert.x 3.1 & Play-twirl 1.1 to show openlayer map with wiki-text2speech link. 
 
-== Steps to test ==
+### Steps to test 
 
 **Build "*.classes"**
 
@@ -15,10 +15,10 @@ Now point your browser at http://localhost:8080
 **Open in "intellij idea"**   # Build first
 
     ```
-    $ open intellij       # use >15.0.2 with scala and gradle plugin
+    $ open intellij                                       # use >15.0.2 with scala and gradle plugin
     $$ File/import path/to/de.jwausle.vertx.first
-    $$ Build/Make Project # must compile without ERRORs
-    -   on source-level error: check 'File/Project Structure/SDKs' # 1.8 requiered
+    $$ Build/Make Project                                 # must compile without ERRORs
+    -   on source-level error: check 'File/Project Structure/SDKs'      # 1.8 requiered
         FIX: select 1.8 SDK
     -   on compile error:      check 'File/Project Structure/Libraries' # maybe wrong gradle paths
         FIX: update paths
@@ -27,7 +27,7 @@ Now point your browser at http://localhost:8080
 
 Now point your browser at http://localhost:8080
 
-== Structure ==
+### Structure
 
 ```
 .
@@ -54,7 +54,7 @@ Now point your browser at http://localhost:8080
 
 ```
 
-== Future ==
+### Future 
 
 You may also run the fat jar as a standalone runnable jar:
 
