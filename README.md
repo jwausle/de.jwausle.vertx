@@ -5,4 +5,9 @@
  -  with a integration of play twirl-templating. <br/>
     https://www.playframework.com/ <br/>
     https://github.com/playframework/twirl
+
+## Requieres 
+
+- Java 8
+- Gradle 2.3 
  
