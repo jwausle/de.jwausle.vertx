@@ -1,0 +1,67 @@
+@(action: java.lang.String
+, name:   java.lang.String
+, towns:  java.util.Map[java.lang.String,de.jwausle.vertx.Server.Data]
+, town:   de.jwausle.vertx.Server.Data
+)
+
+<html>
+<title>vertx with play and angularjs(later)</title>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
+</html>
+<body>
+    <div>
+        <form action="@action" method="post">
+            <label>Select a town:</label>
+            <input type="text" list="@name" name="@name">
+                <datalist id="@name">
+                    @towns.keySet.map { item =>
+                    <option>@item</option>
+                    }
+                </datalist>
+            <button type="submit">send</button>
+        </form>
+    </div>
+
+    <div @if(town == null) { hidden }>@town</div>
+
+    <div @if(town == null) { hidden } style="height:50%;width=100%;overflow:hidden;" >
+        <div >
+            <div id="map" class="map"></div>
+        </div>
+
+        <script>
+        var map = new ol.Map({
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.OSM()
+            })
+          ],
+          renderer: 'canvas',
+          target: 'map',
+          view: new ol.View({
+            center: ol.proj.fromLonLat([@if(town != null ) {@town.xy.y,@town.xy.x}]),
+            zoom: 10
+          })
+        });
+
+        // Create the graticule component
+        var graticule = new ol.Graticule({
+          // the style to use for the lines, optional.
+          strokeStyle: new ol.style.Stroke({
+            color: 'rgba(255,120,0,0.9)',
+            width: 2,
+            lineDash: [0.5, 4]
+          })
+        });
+        graticule.setMap(map);
+        </script>
+    </div>
+
+    <div @if(town == null) { hidden } style="height:50%;" >
+        <!-- cgi-bin/rssp?customerid=6433&url=http%3A%2F%2Fen -->
+        <!-- iframe src="@if(town != null ) {http://speechpanel.readspeaker.com/cgi-bin/rssp/212122461053005/start/en/@town.link}" style="width:100%;height:90%;"></iframe -->
+        <iframe src="@if(town != null ) {http://speechpanel.readspeaker.com/cgi-bin/rssp?customerid=6433&url=http%3A%2F%2Fen.@town.link}" style="width:100%;height:90%;"></iframe>
+    </div>
+
+</body>

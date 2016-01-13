@@ -1,0 +1,69 @@
+buildscript {
+  repositories { jcenter() }
+  dependencies { classpath 'us.hexcoder:gradle-twirl:1.1.0' } // to enable play template compilation
+}
+
+plugins {
+  id 'scala'
+  id 'java'
+  //id 'com.github.johnrengelman.shadow' version '1.2.2' // for shadowJar task
+  //id 'application' // to run from gradle
+  //id 'idea' // to generate *.idea project files
+  //id 'eclipse' /// to generate *.eclipse project files
+}
+apply plugin: 'twirl'
+
+
+version = '3.2.0'
+sourceCompatibility = '1.8'
+
+repositories { jcenter() }
+dependencies {
+  compile "io.vertx:vertx-core:$version"
+  compile "io.vertx:vertx-web-templ-mvel:$version"
+  compile "io.vertx:vertx-auth-common:$version"
+  compile "io.vertx:vertx-web:$version"
+  compile "io.vertx:vertx-core:$version"
+  compile "io.vertx:vertx-web-templ-mvel:$version"
+  // io.netty
+  compile "io.netty:netty-buffer:4.0.33.Final"
+  compile "io.netty:netty-codec-http:4.0.33.Final"
+  compile "io.netty:netty-codec:4.0.33.Final"
+  compile "io.netty:netty-common:4.0.33.Final"
+  compile "io.netty:netty-handler:4.0.33.Final"
+  compile "io.netty:netty-transport:4.0.33.Final"
+  // xml.jackson
+  compile "com.fasterxml.jackson.core:jackson-annotations:2.6.0"
+  compile "com.fasterxml.jackson.core:jackson-core:2.6.1"
+  compile "com.fasterxml.jackson.core:jackson-databind:2.6.1"
+  // other
+  compile "org.mvel:mvel2:2.2.0.Final"
+  // scala.twirl
+  compile 'org.scala-lang:scala-library:2.11.7'
+  compile 'com.typesafe.play:twirl-api_2.11:1.1.0'
+  compile 'org.apache.commons:commons-lang3:3.4'
+  compile 'org.scala-lang.modules:scala-xml_2.11:1.0.1'
+}
+
+sourceSets {
+  main {
+    scala { srcDir "src/main/java"; srcDir "src/gen/twirl" } // scalac scala, java and twirl files.
+    java  { srcDirs = [] } // no javac
+  }
+}
+
+twirl {
+  sourceDirectory = "src/main/twirl"
+  targetDirectory = "src/gen/twirl"
+  testSourceDirectory = "src/test/twirl"
+  testTargetDirectory = "build/generated-sources/test/twirl"
+  imports = ["java.lang._", "java.util._", "scala.collection.JavaConversions._", "scala.collection.JavaConverters._"]
+  charset = "UTF8"
+}
+
+//shadowJar {
+//  classifier = 'fat'
+//  mergeServiceFiles {
+//    include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+//  }
+//}
