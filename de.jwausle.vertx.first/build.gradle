@@ -6,8 +6,8 @@ buildscript {
 plugins {
   id 'scala'
   id 'java'
+  id 'application' // to run from gradle
   //id 'com.github.johnrengelman.shadow' version '1.2.2' // for shadowJar task
-  //id 'application' // to run from gradle
   //id 'idea' // to generate *.idea project files
   //id 'eclipse' /// to generate *.eclipse project files
 }
@@ -60,6 +60,11 @@ twirl {
   imports = ["java.lang._", "java.util._", "scala.collection.JavaConversions._", "scala.collection.JavaConverters._"]
   charset = "UTF8"
 }
+
+run {
+  mainClassName = "de.jwausle.vertx.ServerRunner"
+}
+
 
 //shadowJar {
 //  classifier = 'fat'
